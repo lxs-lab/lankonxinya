@@ -1218,7 +1218,7 @@ a { text-decoration: none; color: inherit; }
   <div class="nav-inner">
     <div class="nav-logo">
       <span class="leaf">🌿</span>
-      <span>蓝空新芽</span>
+      <span>蓝空新芽 <small style="font-size:11px;opacity:0.7;font-weight:400;">BLUE SPROUT</small></span>
     </div>
     <div class="nav-links">
       <a href="#philosophy">理念</a>
@@ -1247,6 +1247,9 @@ a { text-decoration: none; color: inherit; }
     <div class="hero-badge">
       <span class="dot"></span>
       北京航空航天大学 · 2026 暑期社会实践
+    </div>
+    <div style="font-family:var(--font-mono);font-size:13px;letter-spacing:4px;opacity:0.9;margin-bottom:16px;animation:fade-in 1s ease-out;">
+      BUAA · BLUE SPROUT / 2026
     </div>
     <h1 class="hero-title">
       蓝空<span class="accent">新芽</span>
@@ -1374,7 +1377,7 @@ a { text-decoration: none; color: inherit; }
     </div>
     <div class="info-item">
       <div class="label">★ TEAM</div>
-      <div class="value">北航蓝空<br>新芽实践队</div>
+      <div class="value">北航蓝空新芽<br><small style="font-size:14px;opacity:0.8;">BLUE SPROUT</small></div>
       <div class="detail">北京航空航天大学</div>
     </div>
   </div>
@@ -1426,8 +1429,8 @@ a { text-decoration: none; color: inherit; }
   <div class="section-tag">04 / 加入我们</div>
   <h2 class="section-title">准备好<em>出发</em>了吗？</h2>
 
-  <div class="join-section fade-in">
-    <h2>🌿 蓝空新芽实践队等你加入</h2>
+    <div class="join-section fade-in">
+    <h2>🌿 蓝空新芽 BLUE SPROUT 等你加入</h2>
     <p>一起用创新的方式，点亮孩子们的未来</p>
 
     <div class="join-info">
@@ -1566,6 +1569,7 @@ a { text-decoration: none; color: inherit; }
     一个灵魂唤醒另一个灵魂。"
   </div>
   <div>北京航空航天大学 · 蓝空新芽实践队 · 2026 暑期</div>
+  <div style="font-family:var(--font-mono);font-size:12px;letter-spacing:2px;opacity:0.7;margin-top:8px;">BLUE SPROUT · 蓝空新芽</div>
   <div class="footer-meta">BUAA × BLUE SPROUT × SUMMER 2026</div>
 </footer>
 
@@ -1600,8 +1604,8 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
-<!-- 编辑提示 -->
-<div class="edit-hint" onclick="openAdmin()" title="点击编辑网站内容">
+<!-- 管理员入口：默认隐藏，URL带 ?admin=密码 才显示 -->
+<div class="edit-hint" id="adminEntry" onclick="openAdmin()" title="管理员入口" style="display:none;">
   ✏️ 编辑内容
 </div>
 
@@ -1917,6 +1921,13 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 //  页面初始化
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
+  // 检查是否是管理员模式
+  const urlParams = new URLSearchParams(window.location.search);
+  const isAdmin = urlParams.get('admin') === CONFIG.adminKey;
+  if (isAdmin) {
+    document.getElementById('adminEntry').style.display = 'block';
+  }
+
   updatePageContent();
   checkQRStatus();
 });
