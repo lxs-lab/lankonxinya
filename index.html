@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北航「蓝空新芽」实践队 | 暑期支教招募</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  /* ========== 基础重置 & 变量 ========== */
+  :root {
+    --sky-deep: #2196f3;
+    --sky-mid: #64b5f6;
+    --sky-light: #bbdefb;
+    --sky-bg: #e3f2fd;
+    --green-deep: #2e7d32;
+    --green-mid: #66bb6a;
+    --green-light: #c8e6c9;
+    --sun: #ffca28;
+    --sun-warm: #ffb300;
+    --cloud: #ffffff;
+    --text-dark: #1a237e;
+    --text-mid: #3949ab;
+    --text-body: #37474f;
+    --text-light: #78909c;
+    --radius: 20px;
+    --radius-sm: 12px;
+    --shadow: 0 8px 32px rgba(33,150,243,0.12);
+    --shadow-hover: 0 12px 40px rgba(33,150,243,0.2);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--sky-bg);
+    color: var(--text-body);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  img { max-width: 100%; height: auto; display: block; }
+
+  a { text-decoration: none; color: inherit; }
+
+  /* ========== 导航栏 ========== */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 14px 24px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(187,222,251,0.5);
+    transition: var(--transition);
+  }
+
+  .navbar.scrolled {
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 2px 20px rgba(33,150,243,0.1);
+  }
+
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--sky-deep);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-logo .leaf { font-size: 22px; }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-mid);
+    transition: var(--transition);
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 2px;
+    background: var(--sky-deep);
+    transition: var(--transition);
+    border-radius: 2px;
+  }
+
+  .nav-links a:hover { color: var(--sky-deep); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    background: var(--sky-deep);
+    color: #fff !important;
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: var(--transition);
+  }
+
+  .nav-cta:hover {
+    background: var(--sun-warm);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(255,179,0,0.3);
+  }
+
+  .nav-cta::after { display: none !important; }
+
+  /* 移动端菜单按钮 */
+  .menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--sky-deep);
+    cursor: pointer;
+  }
+
+  /* ========== 首屏 Hero ========== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 100px 24px 60px;
+    background: linear-gradient(180deg, #42a5f5 0%, #90caf9 40%, #bbdefb 70%, #e3f2fd 100%);
+    overflow: hidden;
+  }
+
+  /* 云朵装饰 */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 10%; left: -5%;
+    width: 200px; height: 80px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 80px;
+    filter: blur(20px);
+    animation: floatCloud 20s ease-in-out infinite;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 25%; right: -3%;
+    width: 160px; height: 60px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 60px;
+    filter: blur(16px);
+    animation: floatCloud 25s ease-in-out infinite reverse;
+  }
+
+  @keyframes floatCloud {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(40px); }
+  }
+
+  .hero-inner {
+    max-width: 900px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.5);
+    color: var(--text-dark);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 18px;
+    border-radius: 24px;
+    margin-bottom: 24px;
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-badge .dot {
+    width: 8px; height: 8px;
+    background: var(--green-mid);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 7vw, 64px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 20px rgba(33,150,243,0.3);
+  }
+
+  .hero h1 .highlight {
+    color: var(--sun);
+    position: relative;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(16px, 3vw, 22px);
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+    margin-bottom: 36px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+
+  .hero-tag {
+    background: rgba(255,255,255,0.25);
+    border: 1px solid rgba(255,255,255,0.4);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 32px;
+    font-size: 15px;
+    font-weight: 700;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+  }
+
+  .btn-primary {
+    background: #fff;
+    color: var(--sky-deep);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  }
+
+  .btn-secondary {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.5);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.35);
+    transform: translateY(-3px);
+  }
+
+  /* 向下滚动提示 */
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .scroll-hint .arrow-down {
+    width: 24px; height: 24px;
+    border-right: 2px solid rgba(255,255,255,0.7);
+    border-bottom: 2px solid rgba(255,255,255,0.7);
+    transform: rotate(45deg);
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ========== 通用区块样式 ========== */
+  .section {
+    padding: 80px 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--sky-deep);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    background: var(--sky-light);
+    padding: 4px 14px;
+    border-radius: 12px;
+  }
+
+  .section-title {
+    font-size: clamp(26px, 5vw, 36px);
+    font-weight: 900;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .section-desc {
+    font-size: 16px;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ========== 理念区块 ========== */
+  .philosophy {
+    background: var(--cloud);
+    border-radius: var(--radius);
+    padding: 48px;
+    box-shadow: var(--shadow);
+    margin-bottom: 40px;
+  }
+
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+    margin-top: 32px;
+  }
+
+  .philosophy-card {
+    padding: 28px;
+    border-radius: var(--radius-sm);
+    background: var(--sky-bg);
+    transition: var(--transition);
+  }
+
+  .philosophy-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .philosophy-card .icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+    background: var(--sky-light);
+  }
+
+  .philosophy-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+  }
+
+  .philosophy-card p {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.7;
+  }
+
+  /* ========== 五育课程区块 ========== */
+  .edu-section {
+    background: linear-gradient(180deg, var(--sky-bg) 0%, #fff 100%);
+  }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+  }
+
+  .edu-card {
+    background: var(--cloud);
+    border-radius: var(--radius-sm);
+    padding: 28px 20px;
+    text-align: center;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+
+  .edu-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--sky-light);
+  }
+
+  .edu-card .edu-icon {
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 16px;
+  }
+
+  .edu-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .edu-card p {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  /* 五育分色 */
+  .edu-card.zhi::before { background: #42a5f5; }
+  .edu-card.zhi .edu-icon { background: #e3f2fd; }
+  .edu-card.zhi h4 { color: #1565c0; }
+
+  .edu-card.lao::before { background: #66bb6a; }
+  .edu-card.lao .edu-icon { background: #e8f5e9; }
+  .edu-card.lao h4 { color: #2e7d32; }
+
+  .edu-card.ti::before { background: #ffa726; }
+  .edu-card.ti .edu-icon { background: #fff3e0; }
+  .edu-card.ti h4 { color: #ef6c00; }
+
+  .edu-card.mei::before { background: #ab47bc; }
+  .edu-card.mei .edu-icon { background: #f3e5f5; }
+  .edu-card.mei h4 { color: #6a1b9a; }
+
+  .edu-card.de::before { background: #ef5350; }
+  .edu-card.de .edu-icon { background: #ffebee; }
+  .edu-card.de h4 { color: #c62828; }
+
+  /* ========== 时间线 / 实践安排 ========== */
+  .timeline {
+    background: var(--cloud);
+    border-radius: var(--radius);
+    padding: 48px;
+    box-shadow: var(--shadow);
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px dashed var(--sky-light);
+  }
+
+  .timeline-item:last-child { border-bottom: none; }
+
+  .timeline-dot {
+    width: 16px; height: 16px;
+    background: var(--sky-deep);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+    position: relative;
+  }
+
+  .timeline-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px; height: 8px;
+    background: #fff;
+    border-radius: 50%;
+  }
+
+  .timeline-content h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+
+  .timeline-content p {
+    font-size: 14px;
+    color: var(--text-light);
+  }
+
+  /* ========== 报名区块 ========== */
+  .join-section {
+    background: linear-gradient(135deg, var(--sky-deep) 0%, var(--sky-mid) 100%);
+    border-radius: var(--radius);
+    padding: 56px 48px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .join-section::before {
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+  }
+
+  .join-section h2 {
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 900;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .join-section p {
+    font-size: 15px;
+    opacity: 0.9;
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .join-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .join-info-item {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: var(--radius-sm);
+    padding: 16px 24px;
+    text-align: left;
+    min-width: 200px;
+  }
+
+  .join-info-item .label {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+
+  .join-info-item .value {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .join-cta {
+    background: #fff;
+    color: var(--sky-deep);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px 40px;
+    border-radius: 32px;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    z-index: 1;
+    font-family: inherit;
+  }
+
+  .join-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  }
+
+  /* ========== 二维码区块 ========== */
+  .qr-section {
+    background: var(--cloud);
+    border-radius: var(--radius);
+    padding: 48px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+
+  .qr-box {
+    width: 200px; height: 200px;
+    background: var(--sky-bg);
+    border-radius: var(--radius-sm);
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--sky-light);
+    position: relative;
+  }
+
+  .qr-box .qr-placeholder {
+    font-size: 13px;
+    color: var(--text-light);
+    text-align: center;
+    padding: 16px;
+  }
+
+  .qr-box .qr-img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+  }
+
+  .qr-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  .qr-status.valid {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  .qr-status.warning {
+    background: #fff3e0;
+    color: #ef6c00;
+  }
+
+  .qr-status.expired {
+    background: #ffebee;
+    color: #c62828;
+  }
+
+  .qr-status .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  .qr-status.valid .status-dot { background: #66bb6a; }
+  .qr-status.warning .status-dot { background: #ffa726; }
+  .qr-status.expired .status-dot { background: #ef5350; }
+
+  .qr-note {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-top: 12px;
+  }
+
+  /* ========== QA 问答区块 ========== */
+  .qa-section {
+    background: linear-gradient(180deg, #fff 0%, var(--sky-bg) 100%);
+  }
+
+  .qa-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .qa-item {
+    background: var(--cloud);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: var(--transition);
+  }
+
+  .qa-item:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  .qa-question {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-dark);
+    transition: var(--transition);
+  }
+
+  .qa-question:hover {
+    background: var(--sky-bg);
+  }
+
+  .qa-question .q-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    background: var(--sky-light);
+    color: var(--sky-deep);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .qa-question .toggle-icon {
+    font-size: 18px;
+    color: var(--text-light);
+    transition: var(--transition);
+  }
+
+  .qa-item.active .toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  .qa-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 24px;
+  }
+
+  .qa-item.active .qa-answer {
+    max-height: 300px;
+    padding: 0 24px 20px;
+  }
+
+  .qa-answer p {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.8;
+    padding-left: 40px;
+  }
+
+  /* ========== 页脚 ========== */
+  .footer {
+    background: var(--text-dark);
+    color: rgba(255,255,255,0.7);
+    padding: 48px 24px 32px;
+    text-align: center;
+  }
+
+  .footer-quote {
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+
+  .footer-quote .quote-mark {
+    color: var(--sky-mid);
+    font-size: 28px;
+    line-height: 0;
+    vertical-align: -8px;
+  }
+
+  .footer-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 24px;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    transition: var(--transition);
+  }
+
+  .footer-links a:hover { color: #fff; }
+
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ========== 编辑提示（开发时可见） ========== */
+  .edit-hint {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--sun);
+    color: var(--text-dark);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(255,202,40,0.4);
+    z-index: 999;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .edit-hint:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,202,40,0.5);
+  }
+
+  /* ========== 响应式 ========== */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .menu-btn { display: block; }
+
+    .hero { padding: 100px 20px 50px; }
+    .hero h1 { font-size: 32px; }
+
+    .section { padding: 48px 20px; }
+    .philosophy { padding: 28px; }
+    .timeline { padding: 28px; }
+    .join-section { padding: 40px 24px; }
+    .qr-section { padding: 28px; }
+
+    .edu-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .edu-card { padding: 20px 12px; }
+    .edu-card .edu-icon { width: 44px; height: 44px; font-size: 22px; }
+
+    .join-info { flex-direction: column; align-items: center; }
+    .join-info-item { width: 100%; max-width: 300px; text-align: center; }
+
+    .footer-links { flex-wrap: wrap; gap: 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .edu-grid { grid-template-columns: 1fr; }
+    .hero-cta-group { flex-direction: column; align-items: center; }
+    .btn { width: 100%; max-width: 280px; justify-content: center; }
+  }
+
+  /* ========== 动画 ========== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========== 管理面板（隐藏，仅管理员可见） ========== */
+  .admin-panel {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .admin-panel.active { display: flex; }
+
+  .admin-box {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 32px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .admin-box h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+  }
+
+  .admin-field {
+    margin-bottom: 16px;
+  }
+
+  .admin-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-mid);
+    margin-bottom: 6px;
+  }
+
+  .admin-field input,
+  .admin-field textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--sky-light);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: var(--transition);
+  }
+
+  .admin-field input:focus,
+  .admin-field textarea:focus {
+    outline: none;
+    border-color: var(--sky-deep);
+  }
+
+  .admin-field textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .admin-btns {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .admin-btns button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: var(--transition);
+  }
+
+  .admin-btns .btn-save {
+    background: var(--sky-deep);
+    color: #fff;
+  }
+
+  .admin-btns .btn-save:hover { background: var(--sky-mid); }
+
+  .admin-btns .btn-cancel {
+    background: var(--sky-bg);
+    color: var(--text-mid);
+  }
+
+  .admin-btns .btn-cancel:hover { background: var(--sky-light); }
+
+  /* ========== 提问弹窗 ========== */
+  .ask-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .ask-modal.active { display: flex; }
+
+  .ask-box {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 32px;
+    max-width: 480px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: modalIn 0.25s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .ask-box h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== 导航栏 ========== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <span class="leaf">🌿</span>
+      <span>蓝空新芽</span>
+    </div>
+    <div class="nav-links">
+      <a href="#philosophy">理念</a>
+      <a href="#courses">课程</a>
+      <a href="#schedule">安排</a>
+      <a href="#qa">问答</a>
+      <a href="#join" class="nav-cta">立即报名</a>
+    </div>
+    <button class="menu-btn" onclick="toggleMobileMenu()">☰</button>
+  </div>
+</nav>
+
+<!-- ========== 首屏 Hero ========== -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      北京航空航天大学 · 2026 暑期社会实践
+    </div>
+    <h1>
+      蓝空<span class="highlight">新芽</span>实践队
+    </h1>
+    <p class="hero-subtitle">
+      暑期支教招募启动！用 AI 时代的新方式，点亮山东乡镇孩子的夏天
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">🤖 AI 赋能</span>
+      <span class="hero-tag">🌱 五育融合</span>
+      <span class="hero-tag">📐 PBL 项目式学习</span>
+      <span class="hero-tag">🏫 山东乡镇中学</span>
+    </div>
+    <div class="hero-cta-group">
+      <a href="#join" class="btn btn-primary">立即报名 →</a>
+      <a href="#philosophy" class="btn btn-secondary">了解更多</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>向下滚动</span>
+    <div class="arrow-down"></div>
+  </div>
+</section>
+
+<!-- ========== 理念区块 ========== -->
+<section class="section" id="philosophy">
+  <div class="section-header fade-in">
+    <div class="section-label">OUR PHILOSOPHY</div>
+    <h2 class="section-title">我们的理念</h2>
+    <p class="section-desc">
+      AI 时代，学习的方式已经彻底改变。记忆不再是门槛，提问能力、思维能力、信息素养才是核心竞争力。
+    </p>
+  </div>
+
+  <div class="philosophy fade-in">
+    <p style="font-size:16px;color:var(--text-body);line-height:1.8;margin-bottom:24px;text-align:center;">
+      你是否对"填鸭式"教育感到无奈？是否想用更符合天性的方式让学习变得有趣又高效？<br>
+      这个夏天，我们邀请你加入北航"蓝空新芽"实践队，前往山东乡镇中学，开展为期两周的创新支教活动。
+    </p>
+
+    <div class="philosophy-grid">
+      <div class="philosophy-card">
+        <div class="icon">🔥</div>
+        <h3>主动探索</h3>
+        <p>最好的学习是主动探索，而非被动接受。我们引导孩子发现问题、提出问题、解决问题。</p>
+      </div>
+      <div class="philosophy-card">
+        <div class="icon">☀️</div>
+        <h3>学会学习</h3>
+        <p>教会孩子"如何学习"，比教会他们"学什么"更重要。培养终身受益的学习能力。</p>
+      </div>
+      <div class="philosophy-card">
+        <div class="icon">🤖</div>
+        <h3>AI 赋能</h3>
+        <p>正确使用 AI 工具——不是用来抄作业，而是用来提问、探索和解决真实问题。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 五育课程区块 ========== -->
+<section class="section edu-section" id="courses">
+  <div class="section-header fade-in">
+    <div class="section-label">CURRICULUM</div>
+    <h2 class="section-title">五育融合 + AI 赋能课程体系</h2>
+    <p class="section-desc">
+      采用 PBL 项目式学习模式，围绕五大维度开展特色活动，所有队员都可参与课程设计与教学实践
+    </p>
+  </div>
+
+  <div class="edu-grid">
+    <div class="edu-card zhi fade-in">
+      <div class="edu-icon">🤖</div>
+      <h4>智育</h4>
+      <p>无人机科普<br>AI 学习工坊<br>编程启蒙</p>
+    </div>
+    <div class="edu-card lao fade-in">
+      <div class="edu-icon">🌱</div>
+      <h4>劳育</h4>
+      <p>田园实践<br>生活技能课<br>手工制作</p>
+    </div>
+    <div class="edu-card ti fade-in">
+      <div class="edu-icon">⚡</div>
+      <h4>体育</h4>
+      <p>趣味运动<br>团队拓展<br>户外挑战</p>
+    </div>
+    <div class="edu-card mei fade-in">
+      <div class="edu-icon">🎨</div>
+      <h4>美育</h4>
+      <p>自然创作<br>AI 艺术设计<br>音乐绘画</p>
+    </div>
+    <div class="edu-card de fade-in">
+      <div class="edu-icon">❤️</div>
+      <h4>德育</h4>
+      <p>榜样故事<br>感恩成长<br>团队协作</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 实践安排 ========== -->
+<section class="section" id="schedule">
+  <div class="section-header fade-in">
+    <div class="section-label">SCHEDULE</div>
+    <h2 class="section-title">实践安排</h2>
+    <p class="section-desc">从招募到出发，每一步都清晰透明</p>
+  </div>
+
+  <div class="timeline fade-in">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>📢 招募阶段</h4>
+        <p>发布招募通知，接受报名申请，筛选面试，组建实践队</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>📚 备课培训</h4>
+        <p>课程设计工作坊、教学技能培训、AI 工具使用培训、团队建设</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>🚌 出发支教</h4>
+        <p>2026 年 7 月中旬 – 8 月初（考期结束后出发，具体时间待定），前往山东乡镇中学开展为期两周的支教活动</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>📝 总结分享</h4>
+        <p>实践报告撰写、成果展示、经验分享会、下一届传承</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 报名区块 ========== -->
+<section class="section" id="join">
+  <div class="section-header fade-in">
+    <div class="section-label">JOIN US</div>
+    <h2 class="section-title">加入我们</h2>
+    <p class="section-desc">如果你也相信教育的力量，想给乡村孩子带去一点不一样的东西</p>
+  </div>
+
+  <div class="join-section fade-in">
+    <h2>🌿 蓝空新芽实践队等你加入</h2>
+    <p>一起用创新的方式，点亮孩子们的未来</p>
+
+    <div class="join-info">
+      <div class="join-info-item">
+        <div class="label">实践时间</div>
+        <div class="value">2026.7 中旬 – 8 月初</div>
+      </div>
+      <div class="join-info-item">
+        <div class="label">实践地点</div>
+        <div class="value">山东省乡镇中学</div>
+      </div>
+      <div class="join-info-item">
+        <div class="label">联系方式</div>
+        <div class="value">15523090410</div>
+      </div>
+    </div>
+
+    <button class="join-cta" onclick="copyContact()">📋 复制微信号 / 电话</button>
+    <p style="font-size:13px;opacity:0.8;margin-top:16px;">搜索加负责人微信，备注「实践队＋姓名」，拉你进群</p>
+  </div>
+</section>
+
+<!-- ========== 二维码区块 ========== -->
+<section class="section" id="qrcode">
+  <div class="section-header fade-in">
+    <div class="section-label">GROUP CHAT</div>
+    <h2 class="section-title">扫码加入群聊</h2>
+    <p class="section-desc">获取最新动态，与志同道合的伙伴交流</p>
+  </div>
+
+  <div class="qr-section fade-in">
+    <div class="qr-status valid" id="qrStatus">
+      <span class="status-dot"></span>
+      <span id="qrStatusText">二维码有效</span>
+    </div>
+
+    <div class="qr-box" id="qrBox">
+      <div class="qr-placeholder">
+        📱<br><br>
+        请替换为群聊二维码图片<br>
+        <span style="font-size:11px;color:#999;">将图片命名为 qr.png 放入同文件夹即可</span>
+      </div>
+    </div>
+
+    <h4 style="font-size:16px;color:var(--text-dark);margin-bottom:8px;">蓝空新芽实践队交流群</h4>
+    <p style="font-size:14px;color:var(--text-light);">微信扫码加入，及时了解招募进度</p>
+
+    <p class="qr-note">
+      💡 <strong>管理员提示：</strong>将二维码图片命名为 <strong>qr</strong> 放同文件夹即可，支持 png / jpg / jpeg / gif / webp 格式。<br>
+      过期前 1 天系统会提醒你替换新二维码。
+    </p>
+  </div>
+</section>
+
+<!-- ========== QA 问答区块 ========== -->
+<section class="section qa-section" id="qa">
+  <div class="section-header fade-in">
+    <div class="section-label">Q&A</div>
+    <h2 class="section-title">常见问题</h2>
+    <p class="section-desc">关于招募、实践、课程的一切疑问</p>
+  </div>
+
+  <div style="text-align:center;margin-bottom:24px;">
+    <button class="btn btn-primary" style="background:var(--sky-deep);color:#fff;" onclick="openAskModal()">💬 我有问题要问</button>
+  </div>
+
+  <div class="qa-list">
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div style="display:flex;align-items:center;">
+          <span class="q-icon">Q</span>
+          <span>谁可以报名参加？</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="qa-answer">
+        <p>仅限<strong>北航本科生</strong>报名。不限专业、不限年级，只要你对教育有热情、愿意付出时间和精力，都欢迎加入！</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div style="display:flex;align-items:center;">
+          <span class="q-icon">Q</span>
+          <span>没有教学经验可以参加吗？</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="qa-answer">
+        <p>当然可以！我们会在出发前组织系统的<strong>备课培训</strong>，包括教学设计、课堂管理、AI 工具使用等。团队里也有经验丰富的学长学姐指导，零基础也能快速上手。</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div style="display:flex;align-items:center;">
+          <span class="q-icon">Q</span>
+          <span>需要准备什么？</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="qa-answer">
+        <p>带上你的热情和创意即可！建议准备一台笔记本电脑（用于备课和 AI 工具演示），以及个人生活用品。课程材料和教学资源由团队统一准备。</p>
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div style="display:flex;align-items:center;">
+          <span class="q-icon">Q</span>
+          <span>如何了解更多信息？</span>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="qa-answer">
+        <p>添加负责人微信 <strong>15523090410</strong>（备注「实践队＋姓名」），或扫码加入上方群聊，随时咨询。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 页脚 ========== -->
+<footer class="footer">
+  <p class="footer-quote">
+    <span class="quote-mark">"</span>
+    教育就是一棵树摇动另一棵树，一朵云推动另一朵云，一个灵魂唤醒另一个灵魂
+    <span class="quote-mark">"</span>
+  </p>
+  <p class="footer-sub">如果你也相信教育的力量，加入我们吧！一起守护新芽成长 💪</p>
+  <div class="footer-links">
+    <a href="#home">回到顶部</a>
+    <a href="#philosophy">理念</a>
+    <a href="#courses">课程</a>
+    <a href="#join">报名</a>
+    <a href="#qa">问答</a>
+  </div>
+  <p class="footer-copy">© 2026 北航「蓝空新芽」实践队 · BUAA Lankonxinya Team</p>
+</footer>
+
+<!-- 提问弹窗 -->
+<div class="ask-modal" id="askModal">
+  <div class="ask-box">
+    <h3>💬 向实践队提问</h3>
+    <p style="font-size:13px;color:var(--text-light);margin-bottom:20px;">
+      填写你的问题，我们会尽快回复。也可直接加微信 <span id="askContact">15523090410</span> 咨询。
+    </p>
+    <div class="admin-field">
+      <label>你的称呼</label>
+      <input type="text" id="askName" placeholder="例如：张三" />
+    </div>
+    <div class="admin-field">
+      <label>联系方式（微信/电话，选填）</label>
+      <input type="text" id="askContactInput" placeholder="方便我们回复你" />
+    </div>
+    <div class="admin-field">
+      <label>你的问题</label>
+      <textarea id="askQuestion" placeholder="写下你想问的问题..." style="width:100%;padding:10px 14px;border:1.5px solid var(--sky-light);border-radius:10px;font-size:14px;font-family:inherit;resize:vertical;min-height:80px;"></textarea>
+    </div>
+    <div class="admin-btns">
+      <button class="btn-save" onclick="submitQuestion()">发送问题</button>
+      <button class="btn-cancel" onclick="closeAskModal()">取消</button>
+    </div>
+    <p style="font-size:11px;color:#aaa;margin-top:12px;text-align:center;">
+      💡 提交后会调起你的邮箱发送邮件，也可复制内容自行发送。
+    </p>
+  </div>
+</div>
+
+<!-- 编辑提示 -->
+<div class="edit-hint" onclick="openAdmin()" title="点击编辑网站内容">
+  ✏️ 编辑内容
+</div>
+
+<!-- 管理面板 -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-box">
+    <h3>🛠️ 网站内容管理</h3>
+    <p style="font-size:13px;color:var(--text-light);margin-bottom:20px;">
+      修改下方内容后点击保存，即可更新网站显示。所有修改保存在当前 HTML 文件中。
+    </p>
+
+    <div class="admin-field">
+      <label>负责人电话 / 微信</label>
+      <input type="text" id="adminPhone" value="15523090410">
+    </div>
+
+    <div class="admin-field">
+      <label>接收提问的邮箱（用于接收同学提问）</label>
+      <input type="email" id="adminEmail" placeholder="example@qq.com">
+    </div>
+
+    <div class="admin-field">
+      <label>实践时间</label>
+      <input type="text" id="adminTime" value="2026年7月中旬 – 8月初">
+    </div>
+
+    <div class="admin-field">
+      <label>实践地点</label>
+      <input type="text" id="adminLocation" value="山东省乡镇中学">
+    </div>
+
+    <div class="admin-field">
+      <label>二维码过期提醒日期</label>
+      <input type="date" id="adminQrExpire">
+    </div>
+
+    <div class="admin-field">
+      <label>招募状态</label>
+      <select id="adminStatus" style="width:100%;padding:10px 14px;border:1.5px solid var(--sky-light);border-radius:10px;font-size:14px;font-family:inherit;">
+        <option value="open">招募中</option>
+        <option value="closed">已结束</option>
+      </select>
+    </div>
+
+    <div class="admin-btns">
+      <button class="btn-save" onclick="saveAdmin()">保存修改</button>
+      <button class="btn-cancel" onclick="closeAdmin()">取消</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== 导航栏滚动效果 ==========
+window.addEventListener('scroll', () => {
+  const navbar = document.getElementById('navbar');
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+// ========== 滚动渐入动画 ==========
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ========== QA 折叠 ==========
+function toggleQA(element) {
+  const item = element.parentElement;
+  const isActive = item.classList.contains('active');
+
+  // 关闭所有
+  document.querySelectorAll('.qa-item').forEach(qa => qa.classList.remove('active'));
+
+  // 打开当前（如果之前没打开）
+  if (!isActive) {
+    item.classList.add('active');
+  }
+}
+
+// ========== 复制联系方式 ==========
+function copyContact() {
+  const contact = '15523090410';
+  navigator.clipboard.writeText(contact).then(() => {
+    alert('已复制到剪贴板：' + contact + '\n\n打开微信 → 添加朋友 → 粘贴搜索');
+  }).catch(() => {
+    // 降级方案
+    const input = document.createElement('input');
+    input.value = contact;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+    alert('已复制到剪贴板：' + contact);
+  });
+}
+
+// ========== 二维码过期检测 ==========
+function checkQRStatus() {
+  const expireDate = localStorage.getItem('qrExpireDate');
+  const statusEl = document.getElementById('qrStatus');
+  const statusText = document.getElementById('qrStatusText');
+
+  if (!expireDate) {
+    statusEl.className = 'qr-status warning';
+    statusText.textContent = '请设置二维码过期时间';
+    return;
+  }
+
+  const now = new Date();
+  const expire = new Date(expireDate);
+  const diffDays = Math.ceil((expire - now) / (1000 * 60 * 60 * 24));
+
+  if (diffDays <= 0) {
+    statusEl.className = 'qr-status expired';
+    statusText.textContent = '二维码已过期，请立即更新！';
+    alert('⚠️ 群聊二维码已过期！请替换新的二维码图片。');
+  } else if (diffDays <= 2) {
+    statusEl.className = 'qr-status warning';
+    statusText.textContent = '二维码即将过期（还剩 ' + diffDays + ' 天）';
+    if (diffDays === 1) {
+      alert('⚠️ 提醒：群聊二维码将在明天过期，请及时更新！');
+    }
+  } else {
+    statusEl.className = 'qr-status valid';
+    statusText.textContent = '二维码有效（还剩 ' + diffDays + ' 天）';
+  }
+}
+
+// 加载二维码图片（支持多格式）
+function loadQRCode() {
+  const extensions = ['png', 'jpg', 'jpeg', 'gif', 'webp'];
+  const box = document.getElementById('qrBox');
+
+  function tryLoad(extIndex) {
+    if (extIndex >= extensions.length) {
+      // 所有格式都失败了，保持占位符
+      box.innerHTML = '<div class="qr-placeholder">📱<br><br>请放入二维码图片<br><span style="font-size:11px;color:#999;">支持 png/jpg/jpeg/gif/webp 格式</span></div>';
+      return;
+    }
+    const ext = extensions[extIndex];
+    const img = new Image();
+    img.onload = function() {
+      box.innerHTML = '<img src="qr.' + ext + '" alt="群聊二维码" class="qr-img">';
+    };
+    img.onerror = function() {
+      tryLoad(extIndex + 1);
+    };
+    img.src = 'qr.' + ext + '?t=' + new Date().getTime(); // 防止缓存
+  }
+
+  tryLoad(0);
+}
+
+loadQRCode();
+// 页面加载时检查二维码状态
+checkQRStatus();
+
+// ========== 提问弹窗 ==========
+function openAskModal() {
+  document.getElementById('askModal').classList.add('active');
+  // 更新弹窗中显示的微信号
+  const phone = localStorage.getItem('adminPhone') || '15523090410';
+  document.getElementById('askContact').textContent = phone;
+  // 清空表单
+  document.getElementById('askName').value = '';
+  document.getElementById('askContactInput').value = '';
+  document.getElementById('askQuestion').value = '';
+}
+
+function closeAskModal() {
+  document.getElementById('askModal').classList.remove('active');
+}
+
+function submitQuestion() {
+  const name = document.getElementById('askName').value.trim();
+  const contact = document.getElementById('askContactInput').value.trim();
+  const question = document.getElementById('askQuestion').value.trim();
+
+  if (!question) {
+    alert('请填写你的问题！');
+    document.getElementById('askQuestion').focus();
+    return;
+  }
+
+  const displayName = name || '匿名同学';
+  const adminEmail = localStorage.getItem('adminEmail') || '';
+  const adminPhone = localStorage.getItem('adminPhone') || '15523090410';
+
+  // 构造邮件内容
+  const subject = encodeURIComponent('【蓝空新芽】网站提问来自：' + displayName);
+  const body = encodeURIComponent(
+    '【提问人】' + displayName + '\n' +
+    '【联系方式】' + (contact || '未填写') + '\n' +
+    '【问题内容】\n' + question + '\n\n' +
+    '--\n此邮件来自蓝空新芽实践队招募网站提问表单'
+  );
+
+  if (adminEmail) {
+    // 有设置邮箱，直接调起邮件
+    window.location.href = 'mailto:' + adminEmail + '?subject=' + subject + '&body=' + body;
+    alert('✅ 已调起邮件客户端！\n\n如果没反应，请复制下方内容自行发送：\n\n' +
+      '收件人：' + adminEmail + '\n' +
+      '主题：' + decodeURIComponent(subject) + '\n' +
+      '内容：\n' + decodeURIComponent(body));
+  } else {
+    // 没设置邮箱，复制到剪贴板，让用户自己发微信
+    const text = '【蓝空新芽实践队 网站提问】\n提问人：' + displayName +
+      '\n联系方式：' + (contact || '未填写') + '\n问题：' + question +
+      '\n\n请加微信 ' + adminPhone + ' 发送以上内容，或发邮件到负责人邮箱。';
+    navigator.clipboard.writeText(text).then(() => {
+      alert('✅ 问题已复制到剪贴板！\n\n请打开微信，搜索 ' + adminPhone + '，\n将复制的内容发送给负责人。');
+    }).catch(() => {
+      alert('请手动复制以下内容发送给负责人微信 ' + adminPhone + '：\n\n' + text);
+    });
+  }
+
+  closeAskModal();
+}
+
+// ========== 管理面板 ==========
+function openAdmin() {
+  document.getElementById('adminPanel').classList.add('active');
+  // 加载已保存的数据
+  const savedPhone = localStorage.getItem('adminPhone');
+  const savedTime = localStorage.getItem('adminTime');
+  const savedLocation = localStorage.getItem('adminLocation');
+  const savedEmail = localStorage.getItem('adminEmail');
+  const savedQrExpire = localStorage.getItem('qrExpireDate');
+
+  if (savedPhone) document.getElementById('adminPhone').value = savedPhone;
+  if (savedTime) document.getElementById('adminTime').value = savedTime;
+  if (savedLocation) document.getElementById('adminLocation').value = savedLocation;
+  if (savedEmail) document.getElementById('adminEmail').value = savedEmail;
+  if (savedQrExpire) document.getElementById('adminQrExpire').value = savedQrExpire;
+}
+
+function closeAdmin() {
+  document.getElementById('adminPanel').classList.remove('active');
+}
+
+function saveAdmin() {
+  const phone = document.getElementById('adminPhone').value;
+  const time = document.getElementById('adminTime').value;
+  const location = document.getElementById('adminLocation').value;
+  const email = document.getElementById('adminEmail').value;
+  const qrExpire = document.getElementById('adminQrExpire').value;
+  const status = document.getElementById('adminStatus').value;
+
+  // 保存到 localStorage
+  localStorage.setItem('adminPhone', phone);
+  localStorage.setItem('adminTime', time);
+  localStorage.setItem('adminLocation', location);
+  if (email) localStorage.setItem('adminEmail', email);
+  if (qrExpire) localStorage.setItem('qrExpireDate', qrExpire);
+  localStorage.setItem('recruitStatus', status);
+
+  // 更新页面显示
+  updatePageContent();
+  checkQRStatus();
+
+  alert('✅ 修改已保存！页面内容已更新。');
+  closeAdmin();
+}
+
+function updatePageContent() {
+  const phone = localStorage.getItem('adminPhone') || '15523090410';
+  const time = localStorage.getItem('adminTime') || '2026年7月中旬 – 8月初';
+  const location = localStorage.getItem('adminLocation') || '山东省乡镇中学';
+
+  // 更新页面上的联系方式
+  document.querySelectorAll('.join-info-item').forEach(item => {
+    const label = item.querySelector('.label');
+    const value = item.querySelector('.value');
+    if (label && value) {
+      if (label.textContent.includes('时间')) value.textContent = time;
+      if (label.textContent.includes('地点')) value.textContent = location;
+      if (label.textContent.includes('联系')) value.textContent = phone;
+    }
+  });
+}
+
+// 页面加载时更新内容
+updatePageContent();
+
+// ========== 移动端菜单 ==========
+function toggleMobileMenu() {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = 'none';
+  } else {
+    links.style.display = 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '60px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = 'rgba(255,255,255,0.95)';
+    links.style.backdropFilter = 'blur(16px)';
+    links.style.padding = '20px';
+    links.style.boxShadow = '0 8px 32px rgba(0,0,0,0.1)';
+    links.style.gap = '16px';
+  }
+}
+
+// 点击导航链接后关闭移动端菜单
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      document.querySelector('.nav-links').style.display = 'none';
+    }
+  });
+});
+</script>
+
+</body>
+</html>
